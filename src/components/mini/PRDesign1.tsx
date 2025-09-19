@@ -11,7 +11,7 @@ const PRDesign1 = ({data}: {data: ProductType}) => {
         <div className='w-full h-[360px] flex flex-col relative group transition-all duration-200 hover:shadow-sm shadow-gray-300'>
 
             {/* Image */}
-            <div className='w-full h-2/3 bg-skyBlue flex justify-center items-center'>
+            <div className='w-full h-2/3 bg-gray-100 flex justify-center items-center'>
                 <Image src={data.image ? data.image : '/product1.png'} height={170} width={170} alt='product' />
             </div>
 

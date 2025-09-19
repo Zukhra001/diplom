@@ -86,14 +86,21 @@ const Navbar = () => {
                     <Link href={"/contact"} className='font-lato text-white hover:underline hover:text-pink'>{currentTexts.contact}</Link>
                 </div>}
 
+                
                 <div className='hidden md:col-span-5 lg:col-span-2 md:flex justify-end items-center'>
-                    <div className='md:w-full lg:w-80 h-10 bg-skyBlue border-gray-200 border grid grid-cols-6 items-center'>
-                        <input type="text" className='p-3 font-josefin-sans font-semibold text-offNavyBlue border-none outline-none placeholder:text-gray-300 col-span-5' placeholder={currentTexts.search} />
-                        <button className='bg-pink w-full h-full flex justify-center items-center'><FiSearch size={20} color='white' /></button>
-                    </div>
+                  <div className='md:w-full lg:w-72 h-10 bg-gray-100 border border-gray-300 rounded-md shadow-sm grid grid-cols-6 items-center transition-all duration-200 hover:bg-gray-200 hover:shadow-md'>
+                    <input 
+                    type="text" 
+                    className='p-2 font-josefin-sans font-semibold text-offNavyBlue border-none outline-none placeholder:text-gray-400 col-span-5 rounded-l-md' 
+                    placeholder={currentTexts.search} 
+                    />
+                    <button className='bg-pink w-full h-full flex justify-center items-center rounded-r-md'>
+                      <FiSearch size={20} color='white' />
+                      </button>
+                  </div>
                 </div>
-            </nav>
-        </div>
+              </nav>
+          </div>
     )
 }
 

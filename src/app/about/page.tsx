@@ -104,9 +104,9 @@ const AboutPage = () => {
                 <Heading text={currentTexts.client_say} color={{ primary: false, value: 'black' }} />
                 <div className='flex-col flex justify-center items-center py-10'>
                     <div className='flex justify-center items-center gap-2'>
-                        <Image src={'/mask.png'} width={50} height={50} className='rounded-md' alt='user' />
+                        <Image src={'/mask2.png'} width={50} height={50} className='rounded-md' alt='user' />
                         <Image src={'/mask.png'} width={55} height={59} className='rounded-md mb-1' alt='user' />
-                        <Image src={'/mask.png'} width={50} height={50} className='rounded-md' alt='user' />
+                        <Image src={'/mask1.png'} width={50} height={50} className='rounded-md' alt='user' />
                     </div>
                     <div className='py-5'>
                         <p className='font-semibold font-lato text-2xl text-black'>Selina Gomezi</p>

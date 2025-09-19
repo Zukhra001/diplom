@@ -7,7 +7,7 @@ const CategoryProduct = ({data}: {data: ProductType}) => {
         <div className='w-full h-[360px] flex flex-col items-center justify-center relative group transition-all duration-200 hover:shadow-sm shadow-gray-300'>
             <div className="w-full h-[70%]">
             {/* Image */}
-            <div className='size-[220px] bg-skyBlue flex justify-center items-center rounded-full group-hover:border group-hover:border-purple mx-auto'>
+            <div className='size-[220px] bg-gray-100 flex justify-center items-center rounded-full group-hover:border group-hover:border-purple mx-auto'>
                 <Image src={data.image} height={170} width={170} alt={data.title} />
             </div>
             </div>

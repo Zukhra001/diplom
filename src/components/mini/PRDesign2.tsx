@@ -12,9 +12,10 @@ const PRDesign2 = ({data}: {data: ProductType}) => {
         <div className='w-full h-[360px] flex flex-col relative group transition-all duration-200 hover:shadow-sm shadow-gray-300'>
 
             {/* Image */}
-            <div className='w-full h-[90%] bg-skyBlue group-hover:bg-transparent flex justify-center items-center'>
+            <div className='w-full h-[90%] bg-gray-100 group-hover:bg-white flex justify-center items-center transition-colors duration-200'>
                 <Image src={data.image} height={220} width={220} alt={data.title} />
-            </div>
+                </div>
+
 
             {/* Details */}
             <div className='flex items-center justify-between gap-2 bg-white  py-2'>

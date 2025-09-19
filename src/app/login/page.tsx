@@ -40,7 +40,7 @@ const Login = () => {
         }
 
         window.addEventListener('languageChanged', handleLanguageChange as EventListener)
-        
+
         return () => {
             window.removeEventListener('languageChanged', handleLanguageChange as EventListener)
         }
@@ -57,8 +57,12 @@ const Login = () => {
                         <h3 className='text-black font-josefin-sans text-4xl font-bold text-center'>{currentTexts.login_title}</h3>
                         <p className='text-gray-400 text-center font-lato'>{currentTexts.login_subtitle}</p>
                     </div>
-                    <input type="text" className='bg-transparent mt-4 my-2 text-navyBlue placeholder:text-[#C2C5E1] border border-[#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.email_placeholder} />
-                    <input type="password" className='bg-transparent my-2 text-navyBlue placeholder:text-[#C2C5E1] border border-[#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.password_placeholder} />
+                    <input type="text" className='bg-transparent mt-4 my-2 text-navyBlue placeholder:text-[
+#C2C5E1] border border-[
+#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.email_placeholder} />
+                    <input type="password" className='bg-transparent my-2 text-navyBlue placeholder:text-[
+#C2C5E1] border border-[
+#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.password_placeholder} />
                     <p className='text-gray-400 text-left font-lato'>{currentTexts.forgot_password}</p>
                     <button className='bg-pink rounded-md font-josefin-sans px-8 text-white py-3 text-xl my-4'>{currentTexts.sign_in}</button>
                     <p className='text-gray-400 text-center mt-5 font-lato'>{currentTexts.create_account}</p>
