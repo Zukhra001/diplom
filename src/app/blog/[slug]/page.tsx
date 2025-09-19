@@ -1,6 +1,7 @@
+'use client';
 import MainHeader from '@/components/MainHeader'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaFacebookF, FaInstagram, FaPenNib, FaTwitter } from 'react-icons/fa'
 import { SlCalender } from 'react-icons/sl'
 import Sidebar from '../Sidebar'
@@ -11,9 +12,51 @@ import Comment from './Comment'
 import Companies from '@/components/Companies'
 
 const SingleBlog = () => {
+    const [currentLanguage, setCurrentLanguage] = useState('en')
+
+    const texts = {
+        en: {
+            title: "Single Blog",
+            current: " Single Blog",
+            blog_title: "Top essential Trends in 2024",
+            author: "Sarfaraz Unar",
+            blog_content_1: "More off this less hello samlande lied much over tightly circa horse taped mightly Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod necessitatibus aliquam obcaecati consequatur! Repellat odio unde natus possimus enim quibusdam perferendis, temporibus numquam, sapiente suscipit dolorem blanditiis quidem dicta vel dolor laborum nesciunt necessitatibus ipsa soluta hic molestias impedit facilis libero? Laborum vitae eius obcaecati.",
+            blog_content_2: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim totam impedit cupiditate! Porro praesentium ipsam modi impedit consequatur laboriosam nobis culpa repellendus et? Aut nobis numquam, sed dolorum amet deleniti.",
+            quote: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium, nemo iusto sapiente voluptates minima quaerat ipsum aut earum maxime amet deserunt obcaecati cum id reiciendis.",
+            blog_content_3: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur ullam necessitatibus sapiente ducimus labore tenetur quasi harum, sed rem quidem perspiciatis exercitationem in ab aliquid? Praesentium totam beatae molestiae consequuntur."
+        },
+        ru: {
+            title: "Отдельная статья",
+            current: " Отдельная статья",
+            blog_title: "Топ важных трендов 2024",
+            author: "Сарфараз Унар",
+            blog_content_1: "More off this less hello samlande lied much over tightly circa horse taped mightly Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod necessitatibus aliquam obcaecati consequatur! Repellat odio unde natus possimus enim quibusdam perferendis, temporibus numquam, sapiente suscipit dolorem blanditiis quidem dicta vel dolor laborum nesciunt necessitatibus ipsa soluta hic molestias impedit facilis libero? Laborum vitae eius obcaecati.",
+            blog_content_2: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim totam impedit cupiditate! Porro praesentium ipsam modi impedit consequatur laboriosam nobis culpa repellendus et? Aut nobis numquam, sed dolorum amet deleniti.",
+            quote: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium, nemo iusto sapiente voluptates minima quaerat ipsum aut earum maxime amet deserunt obcaecati cum id reiciendis.",
+            blog_content_3: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur ullam necessitatibus sapiente ducimus labore tenetur quasi harum, sed rem quidem perspiciatis exercitationem in ab aliquid? Praesentium totam beatae molestiae consequuntur."
+        }
+    }
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem('language') || 'en'
+        setCurrentLanguage(savedLang)
+
+        const handleLanguageChange = (event: CustomEvent) => {
+            setCurrentLanguage(event.detail)
+        }
+
+        window.addEventListener('languageChanged', handleLanguageChange as EventListener)
+        
+        return () => {
+            window.removeEventListener('languageChanged', handleLanguageChange as EventListener)
+        }
+    }, [])
+
+    const currentTexts = texts[currentLanguage as keyof typeof texts]
+
     return (
         <div className='w-full'>
-            <MainHeader title='Single Blog' prev='Home . Pages . ' current='Single Blog' />
+            <MainHeader title={currentTexts.title} prev='Home . Pages . ' current={currentTexts.current} />
             <div className='w-full px-5 lg:px-40 py-20 grid md:grid-cols-7 gap-10'>
                 <div className='col-span-full lg:col-span-5'>
                     <Image src={"/blog4.png"} width={870} height={543} alt='blog' className={` rounded-md object-cover`} />
@@ -21,7 +64,7 @@ const SingleBlog = () => {
                         <div className='flex justify-start gap-4'>
                             <div className="flex justify-start items-center gap-1">
                                 <FaPenNib className='text-pink size-3' />
-                                <p className={`font-josefin-sans text-navyBlue text-sm bg-pink/20 `}>Sarfaraz Unar</p>
+                                <p className={`font-josefin-sans text-navyBlue text-sm bg-pink/20 `}>{currentTexts.author}</p>
                             </div>
                             <div className="flex justify-start items-center gap-1">
                                 <SlCalender className='text-[#FFA454] size-3' />
@@ -29,21 +72,18 @@ const SingleBlog = () => {
                             </div>
                         </div>
 
-                        <h4 className={`font-josefin-sans font-bold  text-navyBlue text-3xl `}>Top essential Trends in 2024</h4>
+                        <h4 className={`font-josefin-sans font-bold  text-navyBlue text-3xl `}>{currentTexts.blog_title}</h4>
                         <div className='font-lato text-[#8A8FB9] font-normal '>
-                            <p>More off this less hello samlande lied much over tightly circa horse taped mightly Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod necessitatibus aliquam obcaecati consequatur! Repellat odio unde natus possimus enim quibusdam perferendis, temporibus numquam, sapiente suscipit dolorem blanditiis quidem dicta vel dolor laborum nesciunt necessitatibus ipsa soluta hic molestias impedit facilis libero? Laborum vitae eius obcaecati.</p>
-                            <p className='py-2'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim totam impedit cupiditate! Porro praesentium ipsam modi impedit consequatur laboriosam nobis culpa repellendus et? Aut nobis numquam, sed dolorum amet deleniti.
-                            </p>
+                            <p>{currentTexts.blog_content_1}</p>
+                            <p className='py-2'>{currentTexts.blog_content_2}</p>
                             <blockquote className='bg-[#FAFAFB] border-l-2 p-2 my-5 leading-8 text-gray-500 border-red'>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Praesentium, nemo iusto sapiente voluptates minima quaerat ipsum aut earum maxime amet deserunt obcaecati cum id reiciendis.
+                                {currentTexts.quote}
                             </blockquote>
                             <div className='grid md:grid-cols-2 gap-5'>
-                                
                                 <Image src={"/girl.png"} width={418} height={245} alt='girl' className='rounded-md' />
                                 <Image src={"/girl.png"} width={418} height={245} alt='girl' className='rounded-md' />
                             </div>
-                            <p className='py-4'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur ullam necessitatibus sapiente ducimus labore tenetur quasi harum, sed rem quidem perspiciatis exercitationem in ab aliquid? Praesentium totam beatae molestiae consequuntur.</p>
+                            <p className='py-4'>{currentTexts.blog_content_3}</p>
 
                             <div className='grid md:grid-cols-3 lg:grid-cols-4 items-center gap-1'>
                                 <PRDesignSimple image='/image2.png' version={2} />
@@ -52,12 +92,8 @@ const SingleBlog = () => {
                                 <PRDesignSimple image='/image6.png' version={2} />
                             </div>
 
-                            <p className='py-2'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim totam impedit cupiditate! Porro praesentium ipsam modi impedit consequatur laboriosam nobis culpa repellendus et? Aut nobis numquam, sed dolorum amet deleniti.
-                            </p>
-                            <p className='py-2'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim totam impedit cupiditate! Porro praesentium ipsam modi impedit consequatur laboriosam nobis culpa repellendus et? Aut nobis numquam, sed dolorum amet deleniti.
-                            </p>
+                            <p className='py-2'>{currentTexts.blog_content_2}</p>
+                            <p className='py-2'>{currentTexts.blog_content_2}</p>
                         </div>
                         <div className='flex justify-center w-full py-20 items-center gap-2'>
                             <div className='flex justify-center items-center bg-navyBlue size-7 rounded-full text-white'>

@@ -1,75 +1,72 @@
+'use client';
+import Companies from '@/components/Companies'
 import MainHeader from '@/components/MainHeader'
-import React from 'react'
-import CartItem from './CartItem'
-import { IoIosCheckmarkCircle } from 'react-icons/io'
-import Link from 'next/link'
+import React, { useState, useEffect } from 'react'
 
-const CartPage = () => {
-    const images = ['/cart1.png', '/cart2.png', '/cart3.png', '/cart4.png', '/cart5.png']
+const Login = () => {
+    const [currentLanguage, setCurrentLanguage] = useState('en')
+
+    const texts = {
+        en: {
+            title: "My Account",
+            current: " My Account",
+            login_title: "Login",
+            login_subtitle: "Please login using account detail bellow.",
+            email_placeholder: "Email Address",
+            password_placeholder: "Password",
+            forgot_password: "Forgot your password?",
+            sign_in: "Sign In",
+            create_account: "Don't have account? Create One"
+        },
+        ru: {
+            title: "Мой аккаунт",
+            current: " Мой аккаунт", 
+            login_title: "Вход",
+            login_subtitle: "Пожалуйста, войдите, используя данные своего аккаунта.",
+            email_placeholder: "Адрес электронной почты",
+            password_placeholder: "Пароль",
+            forgot_password: "Забыли пароль?",
+            sign_in: "Войти",
+            create_account: "Нет аккаунта? Создайте его"
+        }
+    }
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem('language') || 'en'
+        setCurrentLanguage(savedLang)
+
+        const handleLanguageChange = (event: CustomEvent) => {
+            setCurrentLanguage(event.detail)
+        }
+
+        window.addEventListener('languageChanged', handleLanguageChange as EventListener)
+        
+        return () => {
+            window.removeEventListener('languageChanged', handleLanguageChange as EventListener)
+        }
+    }, [])
+
+    const currentTexts = texts[currentLanguage as keyof typeof texts]
+
     return (
         <div className='w-full'>
-            <MainHeader title='Shopping Cart' current='Shopping Cart' prev='Home . Pages . ' />
-            <div className='w-full px-5 lg:px-40 py-20'>
-                <div className='grid grid-cols-4 lg:grid-cols-6 items-start gap-3'>
-                    <div className='col-span-4 flex flex-col gap-4'>
-                    <table className='overflow-x-scroll'>
-                        <thead>
-                            <tr className='font-josefin-sans text-[#1D3178] font-bold text-xl text-center'>
-                                <td className='text-left'>Product</td>
-                                <td>Price</td>
-                                <td>Qty</td>
-                                <td>Total</td>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {images.map((image, index) => (
-                                <CartItem key={index} image={image} />
-                            ))}
-                        </tbody>
-                    </table>
-                    <div className='flex justify-between items-center'>
-                        <button className='bg-pink rounded-sm font-josefin-sans px-6 text-white py-3'>Update Cart</button>
-                        <button className='bg-pink rounded-sm font-josefin-sans px-6 text-white py-3'>Clear Cart</button>
-                        </div>
+            <MainHeader title={currentTexts.title} prev='Home . Pages . ' current={currentTexts.current} />
+            <div className='flex justify-center items-center w-full'>
+                <div className='flex flex-col shadow-sm shadow-gray-500 rounded-md p-10 md:w-[545px] my-28'>
+                    <div>
+                        <h3 className='text-black font-josefin-sans text-4xl font-bold text-center'>{currentTexts.login_title}</h3>
+                        <p className='text-gray-400 text-center font-lato'>{currentTexts.login_subtitle}</p>
                     </div>
-                    <div className="flex flex-col md:flex-row lg:flex-col gap-4 col-span-full md:gap-3 lg:col-span-2">
-                        <div className='flex flex-col md:col-span-2 lg:col-span-2'>
-                            <h2 className='text-2xl lg:text-xl font-bold text-navyBlue text-center py-5'>Cart Total</h2>
-                            <div className='bg-[#F4F4FC] rounded-sm p-4'>
-                                <div className='flex justify-between items-center pt-4 pb-2 border-b border-gray-400 py-4'>
-                                    <p className='font-lato font-semibold text-lg text-navyBlue'>Subtotal</p>
-                                    <p className='font-lato text-lg text-navyBlue'>$219.00</p>
-                                </div>
-                                <div className='flex justify-between items-center pt-10 pb-2 border-b border-gray-400 py-4'>
-                                    <p className='font-lato font-semibold text-lg text-navyBlue'>Total</p>
-                                    <p className='font-lato text-lg text-navyBlue'>$345.00</p>
-                                </div>
-                                <div className='flex justify-start gap-1 pt-8 pb-10'>
-                                    <IoIosCheckmarkCircle className='text-xs text-green-600' />
-                                    <p className='text-xs text-gray-500 font-lato'>Shipping and Taxes calculated at checkout.</p>
-                                </div>
-                                <Link href={"/payment"}><button  className='bg-green-500 rounded-md text-white w-full py-3'>Proceed to Checkout</button></Link>
-                            </div>
-                        </div>
-                        <div className='flex flex-col md:col-span-2 lg:col-span-2'>
-                            <h2 className='text-2xl lg:text-xl  font-bold text-navyBlue text-center py-5'>Checkout</h2>
-                            <div className='bg-[#F4F4FC] rounded-sm p-4 flex flex-col gap-y-8'>
-                                <input type="text" className='bg-transparent text-gray-700 placeholder:text-[#C5CBE3] border-b border-b-[#C5CBE3] outline-none pb-2' placeholder='Bangladesh' />
-                                <input type="text" className='bg-transparent text-gray-700 placeholder:text-[#C5CBE3]  border-b border-b-[#C5CBE3] outline-none pb-2' placeholder='Mirapur Dhaka, 1200 ' />
-                                <input type="text" className='bg-transparent text-gray-700 placeholder:text-[#C5CBE3]  border-b border-b-[#C5CBE3] outline-none  pb-2' placeholder='Postal Code' />
-                                <div className='flex justify-start gap-1 py-6'>
-                                    <button className='bg-pink rounded-sm font-josefin-sans px-8 text-white py-3'>Calculate Shipping</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <input type="text" className='bg-transparent mt-4 my-2 text-navyBlue placeholder:text-[#C2C5E1] border border-[#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.email_placeholder} />
+                    <input type="password" className='bg-transparent my-2 text-navyBlue placeholder:text-[#C2C5E1] border border-[#C2C5E1] outline-none w-full p-3' placeholder={currentTexts.password_placeholder} />
+                    <p className='text-gray-400 text-left font-lato'>{currentTexts.forgot_password}</p>
+                    <button className='bg-pink rounded-md font-josefin-sans px-8 text-white py-3 text-xl my-4'>{currentTexts.sign_in}</button>
+                    <p className='text-gray-400 text-center mt-5 font-lato'>{currentTexts.create_account}</p>
                 </div>
-
             </div>
+            <Companies />
         </div>
     )
 }
 
-export default CartPage
+export default Login

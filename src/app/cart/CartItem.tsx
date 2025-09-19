@@ -1,7 +1,25 @@
-import React from 'react'
+'use client';
+import React, { useState, useEffect } from 'react'
 import JustItem from './JustItem'
 
 const CartItem = ({image}: {image: string}) => {
+    const [currentLanguage, setCurrentLanguage] = useState('en')
+
+    useEffect(() => {
+        const savedLang = localStorage.getItem('language') || 'en'
+        setCurrentLanguage(savedLang)
+
+        const handleLanguageChange = (event: CustomEvent) => {
+            setCurrentLanguage(event.detail)
+        }
+
+        window.addEventListener('languageChanged', handleLanguageChange as EventListener)
+        
+        return () => {
+            window.removeEventListener('languageChanged', handleLanguageChange as EventListener)
+        }
+    }, [])
+
     return (
         <tr>
             <td className='my-5'>
